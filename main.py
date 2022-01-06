@@ -38,7 +38,7 @@ turn_writer.penup()
 turn_writer.hideturtle()
 turn_writer.goto(-175, 150)
 turn_writer.color("deeppink")
-turn_font = ("Arial", 15, "bold")
+turn_font = ("Arial", 20, "bold")
 message_writer = trtl.Turtle()
 message_writer.penup()
 message_writer.hideturtle()
@@ -106,7 +106,6 @@ for y in y_turtles:
 
 # methods ------------
 
-
 def fill_spot(turtles, spot):
     peice = turtles.pop(0)
     peice.speed(3)
@@ -115,15 +114,13 @@ def fill_spot(turtles, spot):
     peice.goto(x_cor, y_cor)
     peice.showturtle()
 
-
 def write_turn():
     global player_one, turn_writer
     turn_writer.clear()
     if player_one:
-        turn_writer.write("Turn: 1", font=turn_font)
+        turn_writer.write("Turn: X", font=turn_font)
     else:
-        turn_writer.write("Turn: 2", font=turn_font)
-
+        turn_writer.write("Turn: Y", font=turn_font)
 
 def player_turn(x_cor, y_cor):
     global player_one, message, end, message_writer
@@ -166,7 +163,6 @@ def player_turn(x_cor, y_cor):
         turn_writer.clear()
         message_writer.write(message, font=message_font)
 
-
 # to work for the create project, this would need a parameter - maybe dont use global variables so you can pass in a parameter?
 def is_over():
     global message, available
@@ -193,7 +189,6 @@ def is_over():
         message = "It's a tie!"
         return True
     return False
-
 
 # method calls ------------
 
