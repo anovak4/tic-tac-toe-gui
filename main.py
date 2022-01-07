@@ -1,42 +1,49 @@
 import turtle as trtl
 
-# variables ------------
+# setup ------------
 
 x_turtles = []
 y_turtles = []
-centers = {1: (-50, 50), 2: (0, 50), 3: (50, 50), 4: (-50, 0), 5: (0, 0), 6: (50, 0), 7: (-50, -50), 8: (0, -50), 9: (50, -50)}
-available = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+centers = {1:(-50,50), 2:(0,50), 3:(50,50), 4:(-50,0), 5:(0,0), 6:(50,0), 7:(-50,-50), 8:(0,-50), 9:(50,-50)}
+available = [1,2,3,4,5,6,7,8,9]
 used = []
 x_spots = []
 y_spots = []
-combos = [(1, 2, 3), (1, 4, 7), (1, 5, 9), (2, 5, 8), (3, 5, 7), (3, 6, 9), (4, 5, 6), (7, 8, 9)]
+combos = [(1,2,3), (1,4,7), (1,5,9), (2,5,8), (3,5,7), (3,6,9), (4,5,6), (7,8,9)]
 is_player_one = True
 
 wn = trtl.Screen()
 wn.addshape("x.gif")
 wn.addshape("y.gif")
 wn.setup(400, 400)
+wn.title("Tic Tac Toe")
 
 board = trtl.Turtle()
 board.hideturtle()
-board.pensize(2)
+board.pensize(3)
 board.pencolor("deeppink")
 board.speed(0)
 
 turn_writer = trtl.Turtle()
-turn_writer.penup()
 turn_writer.hideturtle()
+turn_writer.penup()
 turn_writer.goto(-175, 140)
 turn_writer.color("deeppink")
 turn_font = ("Arial", 30, "bold")
+
 message_writer = trtl.Turtle()
-message_writer.penup()
 message_writer.hideturtle()
-message_writer.goto(-175, -175)
+message_writer.penup()
+message_writer.goto(-175, 120)
 message_writer.color("deeppink")
 message_font = ("Arial", 45, "bold")
 
-# setup ------------
+button = trtl.Turtle()
+button.hideturtle()
+button.penup()
+button.color("deeppink")
+button.pensize(2)
+button.speed(0)
 
 for i in range(0, 5):
     x = trtl.Turtle()
@@ -72,7 +79,10 @@ for i in range(0, 2):
     board.forward(150)
     y_offset -= 50
 
-# methods ------------
+# functions ------------
+
+def setup():
+    print('placeholder code')
 
 def fill_spot(turtles, spot):
     peice = turtles.pop()
@@ -138,6 +148,7 @@ def won(spot_list):
         if count >= 3:
             wn.onclick(None)
             turn_writer.clear()
+            draw_restart_button()
             return True
         else:
             count = 0
@@ -151,8 +162,28 @@ def is_over():
         wn.onclick(None)
         turn_writer.clear()
         message_writer.write("It's a tie!", font=message_font)
+        draw_restart_button()
 
-# method calls ------------
+def draw_restart_button():
+    button.goto(-75, -100)
+    button.pendown()
+    for i in range(0,2):
+        button.forward(150)
+        button.right(90)
+        button.forward(50)
+        button.right(90)
+    button.penup()
+    button.goto(-55, -140)
+    button.write("Restart?", font=("Arial", 20, "normal"))
+    wn.onclick(restart)
+    # may need another wn.listen()
+
+def restart(x, y):
+    if x >= -75 and x <= 75 and y <= -100 and y >= -150:
+        print('placeholder for clicked button')
+
+
+# function calls ------------
 
 write_turn()
 wn.onclick(player_turn)
