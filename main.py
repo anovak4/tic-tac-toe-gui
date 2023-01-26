@@ -1,12 +1,9 @@
 import turtle as trtl
 
-# variables ------------
-
 x_turtles = []
 y_turtles = []
 centers = {1: (-50, 50), 2: (0, 50), 3: (50, 50), 4: (-50, 0), 5: (0, 0), 6: (50, 0), 7: (-50, -50), 8: (0, -50), 9: (50, -50)}
 available = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-used = []
 x_spots = []
 y_spots = []
 combos = [(1, 2, 3), (1, 4, 7), (1, 5, 9), (2, 5, 8), (3, 5, 7), (3, 6, 9), (4, 5, 6), (7, 8, 9)]
@@ -36,7 +33,7 @@ message_writer.goto(-175, -175)
 message_writer.color("deeppink")
 message_font = ("Arial", 45, "bold")
 
-# setup ------------
+
 
 for i in range(0, 5):
   x = trtl.Turtle()
@@ -72,7 +69,7 @@ for i in range(0, 2):
   board.forward(150)
   y_offset -= 50
 
-# methods ------------
+
 
 def fill_spot(turtles, spot):
   peice = turtles.pop()
@@ -123,7 +120,6 @@ def player_turn(x_cor, y_cor):
       fill_spot(y_turtles, spot)
       y_spots.append(spot)
     available.remove(spot)
-    used.append(spot)
     is_player_one = not is_player_one
     write_turn()
     is_over()
@@ -136,23 +132,25 @@ def won(spot_list):
       if spot in spot_list:
         count += 1
     if count >= 3:
-      wn.onclick(None)
-      turn_writer.clear()
       return True
     else:
       count = 0
 
 def is_over():
   if won(x_spots):
+    wn.onclick(None)
+    turn_writer.clear()
     message_writer.write("X won!", font=message_font)
   elif won(y_spots):
+    wn.onclick(None)
+    turn_writer.clear()
     message_writer.write("Y won!", font=message_font)
   elif len(available) == 0:
     wn.onclick(None)
     turn_writer.clear()
     message_writer.write("It's a tie!", font=message_font)
 
-# method calls ------------
+
 
 write_turn()
 wn.onclick(player_turn)
